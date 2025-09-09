@@ -100,5 +100,25 @@ export default class TaskList {
         return task;
       }
     }
+
+    // Task not found
+    throw new Error("Invalid task id");
+  }
+
+  editTask(id, newTitle, newDescription, newDueDate) {
+    // Getting the task
+    let task = this.getTaskById(id);
+
+    // Adding the new edits after validation
+    if (!this.validateTitle(newTitle)) {
+      throw new Error("Invalid title");
+    }
+    if (!this.validateDate(newDueDate)) {
+      throw new Error("Invalid Date");
+    }
+
+    task.title = newTitle;
+    task.description = newDescription;
+    task.dueDate = newDueDate;
   }
 }
