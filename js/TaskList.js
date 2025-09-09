@@ -79,4 +79,26 @@ export default class TaskList {
 
     return true;
   }
+
+  setDueDate(taskID, dueDate) {
+    // Getting the task
+    let task = this.getTaskById(taskID);
+
+    // Validating the due date
+    if (!this.validateDate(dueDate)) {
+      throw new Error("Invalid Date");
+    }
+
+    // Setting the date
+    task.dueDate = dueDate;
+  }
+
+  getTaskById(id) {
+    // Iterating through the list of tasks
+    for (let task of this.list) {
+      if (task.id === id) {
+        return task;
+      }
+    }
+  }
 }

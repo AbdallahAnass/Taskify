@@ -24,6 +24,10 @@ export default class Task {
     return this._isCompleted;
   }
 
+  get id() {
+    return this._id;
+  }
+
   // Setters
   set title(title) {
     this._title = title;
@@ -43,5 +47,9 @@ export default class Task {
 
   set isCompleted(isCompleted) {
     this._isCompleted = isCompleted;
+  }
+
+  set id(id) {
+    this._id = id;
   }
 }
