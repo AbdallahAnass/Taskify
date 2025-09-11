@@ -133,4 +133,19 @@ export default class TaskList {
       }
     }
   }
+
+  searchTasks(word) {
+    let listOfWords = [];
+
+    // Iterating over the list
+    for (let task of this.list) {
+      // Adding matching titles
+      if (task.title.startsWith(word)) {
+        listOfWords.push(task);
+      }
+    }
+
+    // Returning the filtered list
+    return listOfWords;
+  }
 }
