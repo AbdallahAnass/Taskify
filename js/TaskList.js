@@ -121,4 +121,16 @@ export default class TaskList {
     task.description = newDescription;
     task.dueDate = newDueDate;
   }
+
+  deleteTask(taskId) {
+    // Searching for the task
+    let task = this.getTaskById(taskId);
+
+    // Deleting the task
+    for (let i = 0; i < this.list.length; i++) {
+      if (this.list[i].id == task.id) {
+        this.list.splice(i, 1);
+      }
+    }
+  }
 }
