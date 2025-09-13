@@ -1,5 +1,5 @@
 import Task from "./Task.js";
-import { saveToStorage } from "./storage.js";
+import { saveToStorage, loadFromStorage } from "./storage.js";
 
 export default class TaskList {
   constructor() {
@@ -153,5 +153,38 @@ export default class TaskList {
   saveTasks() {
     // Saving tasks list and the last ID generated to local storage
     saveToStorage(this.list, this.lastID);
+  }
+
+  loadTasks() {
+    // Getting data from storage
+    let data = loadFromStorage();
+
+    // Checking for empty list
+    if (data.list.length == 0) {
+      // Setting the lastId
+      this.lastID = 0;
+
+      // Setting the list to be empty
+      this.list = [];
+    } else {
+      // Converting ID to a number and setting it in the TaskList object
+      this.lastID = Number(data.lastId);
+
+      // Converting the list string to a list of objects
+      let tempList = JSON.parse(data.list);
+
+      // Creating a Task object from each object and adding it to list
+      for (let item of tempList) {
+        let task = new Task();
+        task.id = item._id;
+        task.title = item._title;
+        task.description = item._description;
+        task.dueDate = item._dueDate;
+        task.isCompleted = item._isCompleted;
+
+        // Adding the task to the list
+        this.list.push(task);
+      }
+    }
   }
 }
