@@ -1,4 +1,5 @@
 import Task from "./Task.js";
+import { saveToStorage } from "./storage.js";
 
 export default class TaskList {
   constructor() {
@@ -147,5 +148,10 @@ export default class TaskList {
 
     // Returning the filtered list
     return listOfWords;
+  }
+
+  saveTasks() {
+    // Saving tasks list and the last ID generated to local storage
+    saveToStorage(this.list, this.lastID);
   }
 }
