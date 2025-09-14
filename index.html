@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taskify</title>
+    <!-- Main style file -->
+    <link rel="stylesheet" href="./style/style.css" />
+    <!-- Josefin font from Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <div class="title">
+        <h2 class="title__logo">TODO</h2>
+        <button class="title__theme">
+          <img src="./photos/icon-sun.svg" alt="sun" />
+        </button>
+      </div>
+
+      <div class="task-input">
+        <input type="text" class="task-input__field" placeholder="Add a task" />
+        <button class="task-input__button">Add Details</button>
+      </div>
+
+      <div class="tasks">
+        <div class="tasks__list">
+          <div class="task">
+            <button class="task__button"></button>
+            <div>
+              <div class="task__title">Do your Homework</div>
+              <div class="task__date">September 12, 2025</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tasks__bar">
+          <div><span>5</span> items left</div>
+
+          <div class="tasks__filter-buttons">
+            <button>All</button>
+            <button>Active</button>
+            <button>Completed</button>
+          </div>
+
+          <button>Clear Completed</button>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

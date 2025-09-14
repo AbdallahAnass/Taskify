@@ -1,0 +1,153 @@
+:root {
+  --task-bg-color-dark: hsl(235, 24%, 19%);
+  --bg-color-dark: hsl(235, 21%, 11%);
+  --hover-color: purple;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-size: 18px;
+  font-family: "Josefin Sans", sans-serif;
+  min-height: 100vh;
+  background-image: url(../photos/bg-desktop-dark.jpg);
+  background-repeat: no-repeat;
+  background-color: var(--bg-color-dark);
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  padding: 5rem;
+}
+
+main {
+  width: 60%;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title__logo {
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: white;
+  letter-spacing: 1rem;
+}
+
+.title__theme {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.task-input {
+  padding: 2rem 0;
+  display: flex;
+}
+
+.task-input__field {
+  padding: 1.5rem;
+  background-color: var(--task-bg-color-dark);
+  border: none;
+  display: block;
+  flex-basis: 85%;
+  border-radius: 5px 0 0 5px;
+  color: white;
+}
+
+.task-input__field:focus {
+  outline: none;
+}
+
+.task-input__button {
+  background-color: var(--task-bg-color-dark);
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+  display: block;
+  flex-basis: 15%;
+  transition: all linear 0.5s;
+}
+
+.task-input__button:hover {
+  background-color: var(--hover-color);
+}
+
+.tasks {
+  background-color: var(--task-bg-color-dark);
+  border-radius: 5px;
+  min-height: 500px;
+}
+
+.tasks__list {
+  height: 450px;
+  overflow: scroll;
+}
+
+.task {
+  padding: 1.5rem;
+  border-bottom: 1px solid white;
+  cursor: pointer;
+  color: white;
+  gap: 0.5rem;
+  display: flex;
+}
+
+.task__button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background-repeat: no-repeat;
+  background-position: center center;
+  transition: all linear 0.5s;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.task__button:hover {
+  background-image: url("../photos/icon-check.svg");
+  background-color: var(--hover-color);
+}
+
+.task__title {
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 450px;
+}
+
+.task__date {
+  font-size: 0.9rem;
+}
+
+.tasks__bar {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 1rem;
+  color: white;
+}
+
+.tasks__bar button {
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: all linear 0.5s;
+}
+
+.tasks__bar button:hover {
+  color: var(--hover-color);
+}
+
+.tasks__filter-buttons button {
+  margin: 0 0.5rem;
+}
