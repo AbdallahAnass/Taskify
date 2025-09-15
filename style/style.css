@@ -1,3 +1,4 @@
+/* Variables */
 :root {
   --task-bg-color-dark: hsl(235, 24%, 19%);
   --bg-color-dark: hsl(235, 21%, 11%);
@@ -88,6 +89,7 @@ main {
 .tasks__list {
   height: 450px;
   overflow: scroll;
+  position: relative;
 }
 
 .task {
@@ -150,4 +152,12 @@ main {
 
 .tasks__filter-buttons button {
   margin: 0 0.5rem;
+}
+
+.noTasks {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

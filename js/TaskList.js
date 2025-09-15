@@ -3,8 +3,18 @@ import { saveToStorage, loadFromStorage } from "./storage.js";
 
 export default class TaskList {
   constructor() {
-    this.list = [];
+    this._list = [];
     this.lastID = 0;
+  }
+
+  // Getters
+  get list() {
+    return this._list;
+  }
+
+  // Setters
+  set list(list) {
+    this._list = list;
   }
 
   addTask(title, description, dueDate) {
