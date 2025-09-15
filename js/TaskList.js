@@ -165,10 +165,7 @@ export default class TaskList {
     saveToStorage(this.list, this.lastID);
   }
 
-  loadTasks() {
-    // Getting data from storage
-    let data = loadFromStorage();
-
+  addTasksFromStorage(data) {
     // Checking for empty list
     if (data.list.length == 0) {
       // Setting the lastId
