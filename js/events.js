@@ -1,5 +1,6 @@
 import UI from "./ui.js";
 import TaskList from "./TaskList.js";
+import { loadFromStorage } from "./storage.js";
 
 export default class Events {
   constructor() {
@@ -9,7 +10,10 @@ export default class Events {
 
   initialize() {
     // Loading tasks from Storage
-    this.taskList.loadTasks();
+    let data = loadFromStorage();
+
+    // Adding tasks from storage to the Tasklist
+    this.taskList.addTasksFromStorage(data);
 
     // Getting the list of tasks
     let tasks = this.taskList.list;
