@@ -4,7 +4,25 @@ import { saveToStorage, loadFromStorage } from "./storage.js";
 export default class TaskList {
   constructor() {
     this._list = [];
-    this.lastID = 0;
+    this._lastID = 0;
+  }
+
+  // Getters
+  get list() {
+    return this._list;
+  }
+
+  get lastID() {
+    return this._lastID;
+  }
+
+  // Setters
+  set list(list) {
+    this._list = list;
+  }
+
+  set lastID(lastID) {
+    this._lastID = lastID;
   }
 
   // Getters
@@ -158,11 +176,6 @@ export default class TaskList {
 
     // Returning the filtered list
     return listOfWords;
-  }
-
-  saveTasks() {
-    // Saving tasks list and the last ID generated to local storage
-    saveToStorage(this.list, this.lastID);
   }
 
   addTasksFromStorage(data) {
