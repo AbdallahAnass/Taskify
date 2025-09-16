@@ -1,5 +1,4 @@
 import Task from "./Task.js";
-import { saveToStorage, loadFromStorage } from "./storage.js";
 
 export default class TaskList {
   constructor() {
