@@ -1,6 +1,8 @@
 export default class UI {
   constructor() {
     this.mainList = document.getElementById("main-list");
+    this.addTaskInputField = document.getElementById("add-task");
+    this.lastTaskReference = null;
   }
 
   displayTasks(list) {
@@ -12,13 +14,18 @@ export default class UI {
       // Clearing the screen
       this.mainList.innerHTML = "";
 
-      // Iterating over each element of the list
-      for (let task of list) {
+      // Iterating over each element of the list reversed
+      for (let i = list.length - 1; i >= 0; i--) {
         // Creating a task element
-        let element = this.createTaskElement(task);
+        let element = this.createTaskElement(list[i]);
 
         // Adding element to the DOM
         this.mainList.append(element);
+
+        // Updating the last task reference
+        if (i == list.length - 1) {
+          this.updateLastTaskReference(list[i].id);
+        }
       }
     }
   }
@@ -83,5 +90,30 @@ export default class UI {
 
     // Adding the message to the DOM
     this.mainList.append(message);
+  }
+
+  addTaskInputEventListener(callback) {
+    // Adding an event listener to add task input field
+    this.addTaskInputField.addEventListener("keyup", callback);
+  }
+
+  clearInput(e) {
+    e.target.value = "";
+  }
+
+  addTaskToUi(data) {
+    // Creating task node element
+    let element = this.createTaskElement(data);
+
+    // Adding the element to tasks list in the DOM
+    this.mainList.insertBefore(element, this.lastTaskReference);
+
+    // Updating the last task reference
+    this.updateLastTaskReference(data.id);
+  }
+
+  updateLastTaskReference(taskId) {
+    // Updating the last Task property
+    this.lastTaskReference = document.getElementById(taskId);
   }
 }

@@ -35,6 +35,14 @@ export default class TaskList {
   }
 
   addTask(title, description, dueDate) {
+    // No description entered
+    if (description == undefined) {
+      description = "";
+    }
+    // No due date entered
+    if (dueDate == undefined) {
+      dueDate = "notSet";
+    }
     // Validating title
     if (!this.validateTitle(title)) {
       throw new Error("Invalid title");
@@ -54,7 +62,8 @@ export default class TaskList {
     // Adding the task
     this.list.push(task);
 
-    return true;
+    // Returning the task
+    return task;
   }
 
   generateID() {
