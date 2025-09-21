@@ -3,6 +3,8 @@ export default class UI {
     this.mainList = document.getElementById("main-list");
     this.addTaskInputField = document.getElementById("add-task");
     this.lastTaskReference = null;
+    this.addDetailsBtn = document.getElementById("add-details");
+    this.layer = document.getElementsByClassName("layer")[0];
   }
 
   displayTasks(list) {
@@ -115,5 +117,126 @@ export default class UI {
   updateLastTaskReference(taskId) {
     // Updating the last Task property
     this.lastTaskReference = document.getElementById(taskId);
+  }
+
+  addDetailsEventListener(callback) {
+    this.addDetailsBtn.addEventListener("click", callback);
+  }
+
+  displayTaskDetails(e) {
+    // Displaying the layer over the page
+    this.layer.style.display = "block";
+
+    // Creating main container for the message
+    let container = document.createElement("div");
+    container.className = "task-details";
+
+    // Creating the task title section
+    let title = document.createElement("h2");
+    title.innerHTML = "Task Title";
+
+    let titleInput = document.createElement("input");
+    titleInput.type = "input";
+    titleInput.id = "title";
+
+    // Creating the task description section
+    let taskDescription = document.createElement("h2");
+    taskDescription.innerHTML = "Task Description";
+
+    let descriptionTextarea = document.createElement("textarea");
+    descriptionTextarea.className = "task-details__description";
+    descriptionTextarea.id = "description";
+
+    // Creating the task due date section
+    let taskDueDate = document.createElement("h2");
+    taskDueDate.innerHTML = "Task Due Date";
+
+    let dueDateInput = document.createElement("input");
+    dueDateInput.type = "date";
+    dueDateInput.className = "task-details__due-date";
+    dueDateInput.id = "date";
+
+    // Creating the buttons section
+    let buttonsSection = document.createElement("task-details__buttons");
+    buttonsSection.className = "task-details__buttons";
+
+    let cancelBtn = document.createElement("button");
+    cancelBtn.innerHTML = "Cancel";
+    cancelBtn.id = "cancel";
+
+    let addTaskBtn = document.createElement("button");
+    addTaskBtn.innerHTML = "Add Task";
+    addTaskBtn.id = "add";
+
+    buttonsSection.append(cancelBtn, addTaskBtn);
+
+    // Filling the content based on the event
+    if (e.target.id == "add-details") {
+      // If event is trigger from the add-details button
+      titleInput.value = this.addTaskInputField.value;
+
+      // Clearing the input
+      this.addTaskInputField.value = "";
+    }
+
+    // Adding all the element to the main container
+    container.append(
+      title,
+      titleInput,
+      taskDescription,
+      descriptionTextarea,
+      taskDueDate,
+      dueDateInput,
+      buttonsSection
+    );
+
+    // Adding the container to the DOM
+    document.body.append(container);
+  }
+
+  cancelEventListener(callback) {
+    document.getElementById("cancel").addEventListener("click", callback);
+  }
+
+  closeDetails() {
+    // Hidden the layer
+    this.layer.style.display = "none";
+
+    // Removing the details element
+    document.getElementsByClassName("task-details")[0].remove();
+  }
+
+  addTaskBtnEventListener(callback) {
+    document.getElementById("add").addEventListener("click", callback);
+  }
+
+  getDetails() {
+    // Getting task title value
+    let title = document.getElementById("title").value;
+
+    // Getting task description
+    let description = document.getElementById("description").value;
+
+    // Getting task due date
+    let dueDate = document.getElementById("date").value;
+
+    // No date is entered
+    if (dueDate == "") {
+      dueDate = "notSet";
+    } else {
+      // Decreasing month by one (Because Date object is zero based)
+      let [year, month, day] = dueDate.split("-");
+      month -= 1;
+
+      // Converting dueDate to a data object
+      dueDate = new Date(year, month, day);
+    }
+
+    // Returning the data of the task
+    return {
+      title: title,
+      description: description,
+      dueDate: dueDate,
+    };
   }
 }

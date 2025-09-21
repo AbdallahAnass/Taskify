@@ -22,10 +22,13 @@ export default class Events {
     this.ui.displayTasks(tasks);
 
     // Adding event listener to add task input field
-    this.ui.addTaskInputEventListener(this.addTask.bind(this));
+    this.ui.addTaskInputEventListener(this.addTaskWithoutDetails.bind(this));
+
+    // Adding event lister to add details button
+    this.ui.addDetailsEventListener(this.openDetails.bind(this));
   }
 
-  addTask(e) {
+  addTaskWithoutDetails(e) {
     if (e.key == "Enter") {
       // Getting title value from the input field
       let title = e.target.value;
@@ -39,5 +42,34 @@ export default class Events {
       // Clearing the input
       this.ui.clearInput(e);
     }
+  }
+
+  openDetails(e) {
+    // Displaying task details pop up
+    this.ui.displayTaskDetails(e);
+
+    // Adding event listener to the cancel button
+    this.ui.cancelEventListener(this.ui.closeDetails.bind(this.ui));
+
+    // Adding event listener to the Add task button
+    this.ui.addTaskBtnEventListener(this.addTask.bind(this));
+  }
+
+  addTask() {
+    // Getting task data
+    let data = this.ui.getDetails();
+
+    // Adding task to the list
+    let task = this.taskList.addTask(
+      data.title,
+      data.description,
+      data.dueDate
+    );
+
+    // Adding task to UI
+    this.ui.addTaskToUi(task);
+
+    // Closing task details
+    this.ui.closeDetails();
   }
 }
