@@ -123,7 +123,7 @@ export default class UI {
     this.addDetailsBtn.addEventListener("click", callback);
   }
 
-  displayTaskDetails(e) {
+  displayTaskDetails(e, task) {
     // Displaying the layer over the page
     this.layer.style.display = "block";
 
@@ -172,7 +172,7 @@ export default class UI {
 
     // Filling the content based on the event
     if (e.target.id == "add-details") {
-      // If event is trigger from the add-details button
+      // If event is triggered from the add-details button
       titleInput.value = this.addTaskInputField.value;
 
       // Clearing the input
@@ -189,6 +189,11 @@ export default class UI {
       dueDateInput,
       buttonsSection
     );
+
+    // Filling content if the event is triggered from clicking a task
+    if (e.target.className == "task") {
+      container = this.fillContent(container, task);
+    }
 
     // Adding the container to the DOM
     document.body.append(container);
@@ -238,5 +243,56 @@ export default class UI {
       description: description,
       dueDate: dueDate,
     };
+  }
+
+  taskEventListener(callback) {
+    this.mainList.addEventListener("click", callback);
+  }
+
+  fillContent(container, task) {
+    // Filling content
+
+    // Filling title
+    container.querySelector("#title").value = task.title;
+
+    // Filling description
+    container.querySelector("#description").innerHTML = task.description;
+
+    // Filling the due date
+    if (task.dueDate != "notSet") {
+      let [month, day, year] = task.dueDate.toLocaleDateString().split("/");
+
+      // Ensuring correct month format
+      if (month.length < 2) month = "0" + month;
+
+      // Ensuring correct month format
+      if (day.length < 2) day = "0" + month;
+
+      // Setting the due date input field value
+      container.querySelector("#date").value = `${year}-${month}-${day}`;
+    }
+
+    // Changing add button to update button
+    container.querySelector("#add").innerHTML = "Update";
+    container.querySelector("#add").id = "update";
+
+    // Return container after with task details
+    return container;
+  }
+
+  updateEventListener(callback) {
+    document.getElementById("update").addEventListener("click", callback);
+  }
+
+  editTaskUi(taskId, details) {
+    // Getting task element
+    let task = document.getElementById(taskId);
+
+    // Changing task title
+    task.querySelector(".task__title").innerHTML = details.title;
+
+    // Changing task dueDate
+    task.querySelector(".task__date").innerHTML =
+      details.dueDate.toDateString();
   }
 }

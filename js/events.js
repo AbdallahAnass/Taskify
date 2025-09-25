@@ -24,8 +24,11 @@ export default class Events {
     // Adding event listener to add task input field
     this.ui.addTaskInputEventListener(this.addTaskWithoutDetails.bind(this));
 
-    // Adding event lister to add details button
+    // Adding event listener to add details button
     this.ui.addDetailsEventListener(this.openDetails.bind(this));
+
+    // Adding event listener to each task
+    this.ui.taskEventListener(this.editTask.bind(this));
   }
 
   addTaskWithoutDetails(e) {
@@ -46,7 +49,7 @@ export default class Events {
 
   openDetails(e) {
     // Displaying task details pop up
-    this.ui.displayTaskDetails(e);
+    this.ui.displayTaskDetails(e, null);
 
     // Adding event listener to the cancel button
     this.ui.cancelEventListener(this.ui.closeDetails.bind(this.ui));
@@ -70,6 +73,42 @@ export default class Events {
     this.ui.addTaskToUi(task);
 
     // Closing task details
+    this.ui.closeDetails();
+  }
+
+  editTask(e) {
+    // Checking that event is from clicking on a task
+    if (e.target.className == "task") {
+      // Getting task data
+      let task = this.taskList.getTaskById(Number(e.target.id));
+
+      // Displaying task details pop up
+      this.ui.displayTaskDetails(e, task);
+
+      // Adding event listener to the cancel button
+      this.ui.cancelEventListener(this.ui.closeDetails.bind(this.ui));
+
+      // Adding event listener to the update task button
+      this.ui.updateEventListener(this.updateTask.bind(this, e));
+    }
+  }
+
+  updateTask(e) {
+    // Getting Task details
+    let data = this.ui.getDetails();
+
+    // Editing task in list
+    let editedTask = this.taskList.editTask(
+      Number(e.target.id),
+      data.title,
+      data.description,
+      data.dueDate
+    );
+
+    // Applying the change to UI
+    this.ui.editTaskUi(e.target.id, editedTask);
+
+    // Closing the details
     this.ui.closeDetails();
   }
 }

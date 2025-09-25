@@ -147,7 +147,7 @@ export default class TaskList {
     let task = this.getTaskById(id);
 
     // Adding the new edits after validation
-    if (!this.validateTitle(newTitle)) {
+    if (!this.validateEditedTitle(newTitle, id)) {
       throw new Error("Invalid title");
     }
     if (!this.validateDate(newDueDate)) {
@@ -157,6 +157,25 @@ export default class TaskList {
     task.title = newTitle;
     task.description = newDescription;
     task.dueDate = newDueDate;
+
+    // Returning task
+    return task;
+  }
+
+  validateEditedTitle(title, id) {
+    // Checking for empty title
+    if (title == "" || title == null) {
+      return false;
+    }
+
+    // Checking for a duplicated task other than the original task
+    for (let task of this.list) {
+      if (task.title == title && task.id != id) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   deleteTask(taskId) {
