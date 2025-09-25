@@ -105,12 +105,9 @@ export default class TaskList {
 
     // Checking for dates in the past
     let currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
 
-    if (
-      dueDate.getFullYear() < currentDate.getFullYear() ||
-      dueDate.getMonth() < currentDate.getMonth() ||
-      dueDate.getDate() < currentDate.getDate()
-    ) {
+    if (dueDate < currentDate) {
       return false;
     }
 
