@@ -171,15 +171,6 @@ export default class UI {
 
     buttonsSection.append(cancelBtn, addTaskBtn);
 
-    // Filling the content based on the event
-    if (e.target.id == "add-details") {
-      // If event is triggered from the add-details button
-      titleInput.value = this.addTaskInputField.value;
-
-      // Clearing the input
-      this.addTaskInputField.value = "";
-    }
-
     // Adding all the element to the main container
     container.append(
       title,
@@ -191,9 +182,22 @@ export default class UI {
       buttonsSection
     );
 
-    // Filling content if the event is triggered from clicking a task
-    if (e.target.className == "task") {
+    // Filling the content based on the event
+    if (e.target.id == "add-details") {
+      // If event is triggered from the add-details button
+      titleInput.value = this.addTaskInputField.value;
+
+      // Clearing the input
+      this.addTaskInputField.value = "";
+    } else if (e.target.className == "task") {
+      // If the event is triggered from clicking a task
       container = this.fillContent(container, task);
+
+      // Adding Delete task button
+      let deleteBtn = document.createElement("button");
+      deleteBtn.innerHTML = "Delete task";
+      deleteBtn.id = "delete";
+      buttonsSection.append(deleteBtn);
     }
 
     // Adding the container to the DOM
@@ -314,5 +318,14 @@ export default class UI {
 
     // Adding the task back to the end of the list
     this.mainList.append(taskElement);
+  }
+
+  deleteEventListener(callback) {
+    document.getElementById("delete").addEventListener("click", callback);
+  }
+
+  removeTask(id) {
+    // Deleting task from list
+    document.getElementById(id).remove();
   }
 }

@@ -90,6 +90,9 @@ export default class Events {
 
       // Adding event listener to the update task button
       this.ui.updateEventListener(this.updateTask.bind(this, e));
+
+      // Adding event listener to delete task button
+      this.ui.deleteEventListener(this.deleteTask.bind(this, e));
     } else if (e.target.id == "done") {
       // If event is from clicking on a mark as complete button
       this.markTaskAsComplete(e);
@@ -132,5 +135,19 @@ export default class Events {
 
     // Moving the completed task to the end of the list in UI
     this.ui.moveTask(id);
+  }
+
+  deleteTask(e) {
+    // Getting task id
+    let id = Number(e.target.id);
+
+    // Deleting task from the task list
+    this.taskList.deleteTask(id);
+
+    // Deleting the task from UI
+    this.ui.removeTask(id);
+
+    // Closing the details
+    this.ui.closeDetails();
   }
 }
