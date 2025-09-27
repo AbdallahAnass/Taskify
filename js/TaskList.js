@@ -231,4 +231,12 @@ export default class TaskList {
       }
     }
   }
+
+  markTaskAsComplete(id) {
+    // Searching the list for the task
+    let task = this.getTaskById(id);
+
+    // Marking task as complete
+    task.isCompleted = true;
+  }
 }

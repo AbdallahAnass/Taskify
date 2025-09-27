@@ -230,3 +230,12 @@ main {
 .task-details__buttons button:hover {
   background-color: rgb(119, 29, 119, 0.5);
 }
+
+/* Modifiers */
+.complete button.task__button {
+  background-image: url("../photos/icon-check.svg");
+}
+
+.complete .task__title {
+  text-decoration: line-through;
+}

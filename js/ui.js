@@ -43,6 +43,7 @@ export default class UI {
     // Creating task button
     let btn = document.createElement("button");
     btn.className = "task__button";
+    btn.id = "done";
 
     // Creating the content div
     let content = document.createElement("div");
@@ -294,5 +295,24 @@ export default class UI {
     // Changing task dueDate
     task.querySelector(".task__date").innerHTML =
       details.dueDate.toDateString();
+  }
+
+  markTask(id) {
+    // Getting task in the DOM
+    let taskElement = document.getElementById(id);
+
+    // Applying the task is marked style
+    taskElement.classList.add("complete");
+  }
+
+  moveTask(id) {
+    // Getting task in the DOM
+    let taskElement = document.getElementById(id);
+
+    // Removing the element from the list
+    taskElement.remove();
+
+    // Adding the task back to the end of the list
+    this.mainList.append(taskElement);
   }
 }
