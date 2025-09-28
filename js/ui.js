@@ -328,4 +328,12 @@ export default class UI {
     // Deleting task from list
     document.getElementById(id).remove();
   }
+
+  markOverDueTasks(list) {
+    // Iterating over each id
+    for (let id of list) {
+      // Getting the task with id in the DOM and adding the overdue class
+      document.getElementById(id).classList.add("overdue");
+    }
+  }
 }

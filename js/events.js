@@ -21,6 +21,9 @@ export default class Events {
     // Displaying tasks in UI
     this.ui.displayTasks(tasks);
 
+    // Marking overdue tasks
+    this.markOverdue();
+
     // Adding event listener to add task input field
     this.ui.addTaskInputEventListener(this.addTaskWithoutDetails.bind(this));
 
@@ -149,5 +152,13 @@ export default class Events {
 
     // Closing the details
     this.ui.closeDetails();
+  }
+
+  markOverdue() {
+    // Getting list containing ids of the overdue Tasks
+    let list = this.taskList.getOverdue();
+
+    // Marking overdue tasks in the UI
+    this.ui.markOverDueTasks(list);
   }
 }

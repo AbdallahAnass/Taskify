@@ -239,4 +239,23 @@ export default class TaskList {
     // Marking task as complete
     task.isCompleted = true;
   }
+
+  getOverdue() {
+    // Array to store the ids of the over due tasks
+    let tempList = [];
+
+    // Getting the current date
+    let currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+
+    // Iterating over the array and adding over due tasks
+    for (let task of this.list) {
+      if (task.dueDate < currentDate && !task.isCompleted) {
+        tempList.push(task.id);
+      }
+    }
+
+    // Returning the final list
+    return tempList;
+  }
 }

@@ -239,3 +239,7 @@ main {
 .complete .task__title {
   text-decoration: line-through;
 }
+
+.overdue .task__date {
+  color: red;
+}
