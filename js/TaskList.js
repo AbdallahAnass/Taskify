@@ -4,6 +4,7 @@ export default class TaskList {
   constructor() {
     this._list = [];
     this._lastID = 0;
+    this.__numOfActiveTasks = 0;
   }
 
   // Getters
@@ -29,9 +30,17 @@ export default class TaskList {
     return this._list;
   }
 
+  get numOfActiveTasks() {
+    return this.__numOfActiveTasks;
+  }
+
   // Setters
   set list(list) {
     this._list = list;
+  }
+
+  set numOfActiveTasks(numOfActiveTasks) {
+    this.__numOfActiveTasks = numOfActiveTasks;
   }
 
   addTask(title, description, dueDate) {
@@ -257,5 +266,31 @@ export default class TaskList {
 
     // Returning the final list
     return tempList;
+  }
+
+  initializeCount() {
+    // Iterating over each task
+    for (let task of this.list) {
+      // Counting the active tasks
+      if (!task.isCompleted) {
+        this.numOfActiveTasks++;
+      }
+    }
+
+    // Returning the count
+    return this.numOfActiveTasks;
+  }
+
+  updateCount(type) {
+    if (type === "add") {
+      // Increasing number on add
+      this.numOfActiveTasks++;
+    } else if (type === "remove") {
+      // Decreasing number on remove
+      this.numOfActiveTasks--;
+    }
+
+    // Returning the counts
+    return this.numOfActiveTasks;
   }
 }

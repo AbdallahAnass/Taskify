@@ -21,6 +21,12 @@ export default class Events {
     // Displaying tasks in UI
     this.ui.displayTasks(tasks);
 
+    // Updating the num of items left
+    let leftItems = this.taskList.initializeCount();
+
+    // Displaying the new count
+    this.ui.updateLeftItems(leftItems);
+
     // Marking overdue tasks
     this.markOverdue();
 
@@ -47,6 +53,12 @@ export default class Events {
 
       // Clearing the input
       this.ui.clearInput(e);
+
+      // Updating the number of items left (increasing)
+      let leftItems = this.taskList.updateCount("add");
+
+      // Displaying the new count
+      this.ui.updateLeftItems(leftItems);
     }
   }
 
@@ -77,6 +89,12 @@ export default class Events {
 
     // Closing task details
     this.ui.closeDetails();
+
+    // Updating the number of items left (increasing)
+    let leftItems = this.taskList.updateCount("add");
+
+    // Displaying the new count
+    this.ui.updateLeftItems(leftItems);
   }
 
   editTask(e) {
@@ -138,6 +156,12 @@ export default class Events {
 
     // Moving the completed task to the end of the list in UI
     this.ui.moveTask(id);
+
+    // Updating the number of items left (decreasing)
+    let leftItems = this.taskList.updateCount("remove");
+
+    // Displaying the new count
+    this.ui.updateLeftItems(leftItems);
   }
 
   deleteTask(e) {
@@ -152,6 +176,12 @@ export default class Events {
 
     // Closing the details
     this.ui.closeDetails();
+
+    // Updating the number of items left (decreasing)
+    let leftItems = this.taskList.updateCount("remove");
+
+    // Displaying the new count
+    this.ui.updateLeftItems(leftItems);
   }
 
   markOverdue() {

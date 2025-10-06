@@ -5,6 +5,7 @@ export default class UI {
     this.lastTaskReference = null;
     this.addDetailsBtn = document.getElementById("add-details");
     this.layer = document.getElementsByClassName("layer")[0];
+    this.leftItems = document.getElementById("leftItems");
   }
 
   displayTasks(list) {
@@ -335,5 +336,9 @@ export default class UI {
       // Getting the task with id in the DOM and adding the overdue class
       document.getElementById(id).classList.add("overdue");
     }
+  }
+
+  updateLeftItems(number) {
+    this.leftItems.innerHTML = number;
   }
 }
