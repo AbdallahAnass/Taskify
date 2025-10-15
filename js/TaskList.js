@@ -3,8 +3,9 @@ import Task from "./Task.js";
 export default class TaskList {
   constructor() {
     this._list = [];
+    this._completedTasks = [];
     this._lastID = 0;
-    this.__numOfActiveTasks = 0;
+    this._numOfActiveTasks = 0;
   }
 
   // Getters
@@ -16,6 +17,18 @@ export default class TaskList {
     return this._lastID;
   }
 
+  get list() {
+    return this._list;
+  }
+
+  get numOfActiveTasks() {
+    return this._numOfActiveTasks;
+  }
+
+  get completedTasks() {
+    return this._completedTasks;
+  }
+
   // Setters
   set list(list) {
     this._list = list;
@@ -25,22 +38,16 @@ export default class TaskList {
     this._lastID = lastID;
   }
 
-  // Getters
-  get list() {
-    return this._list;
-  }
-
-  get numOfActiveTasks() {
-    return this.__numOfActiveTasks;
-  }
-
-  // Setters
   set list(list) {
     this._list = list;
   }
 
   set numOfActiveTasks(numOfActiveTasks) {
-    this.__numOfActiveTasks = numOfActiveTasks;
+    this._numOfActiveTasks = numOfActiveTasks;
+  }
+
+  set completedTasks(completedTask) {
+    this.completedTasks = completedTasks;
   }
 
   addTask(title, description, dueDate) {
@@ -247,6 +254,17 @@ export default class TaskList {
 
     // Marking task as complete
     task.isCompleted = true;
+
+    // Adding the task to completed tasks list
+    this.completedTasks.push(task);
+
+    // Removing the task from the active tasks list
+
+    // Getting the index of the task
+    let index = this.list.indexOf(task);
+
+    // Removing it from the list
+    this.list.splice(index, 1);
   }
 
   getOverdue() {
@@ -269,13 +287,8 @@ export default class TaskList {
   }
 
   initializeCount() {
-    // Iterating over each task
-    for (let task of this.list) {
-      // Counting the active tasks
-      if (!task.isCompleted) {
-        this.numOfActiveTasks++;
-      }
-    }
+    // Setting number of active tasks to length of the list
+    this.numOfActiveTasks = this.list.length;
 
     // Returning the count
     return this.numOfActiveTasks;
@@ -292,5 +305,16 @@ export default class TaskList {
 
     // Returning the counts
     return this.numOfActiveTasks;
+  }
+
+  getAllTasks() {
+    // Creating a combination of uncompleted and completed task (All tasks)
+    let tempList = [];
+
+    tempList.push(...this.list);
+    tempList.push(...this.completedTasks);
+
+    // Returning the combined list
+    return tempList;
   }
 }
